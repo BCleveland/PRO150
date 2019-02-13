@@ -10,11 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "deepstream.io": "^3.1.2",
-<<<<<<< Updated upstream
     "express": "^4.16.4",
-=======
     "deepstream.io-client-js": "^2.3.0",
->>>>>>> Stashed changes
     "mongodb": "^3.1.13",
     "nodejs": "0.0.0",
     "pixi.js": "^4.8.5"

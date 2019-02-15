@@ -9,11 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "deepstream.io": "^3.1.2",
     "express": "^4.16.4",
-    "deepstream.io-client-js": "^2.3.0",
     "mongodb": "^3.1.13",
     "nodejs": "0.0.0",
-    "pixi.js": "^4.8.5"
+    "pixi.js": "^4.8.5",
+    "socket.io": "^2.2.0"
   }
 }

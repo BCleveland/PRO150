@@ -7,13 +7,12 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        console.log(msg);
-        io.emit('chat message', msg);
+    socket.on('input', function(input){
+        console.log(input);
     });
   });
 
-app.use(express.static(path.join(__dirname + '/../chat-test')));
+app.use(express.static(path.join(__dirname + '/../game')));
 
 app.get('/', routes.index);
 

@@ -13,7 +13,7 @@ io.on('connection', function(socket){
     });
   });
 
-app.use(express.static(path.join(__dirname + '/../game')));
+app.use(express.static(path.join(__dirname + '/../chat-test')));
 
 app.get('/', routes.index);
 

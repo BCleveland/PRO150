@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="chatstyle.css" rel="stylesheet"/>
+    <script src="/socket.io/socket.io.js"></script>
     <title>Document</title>
     <script src="node_modules/pixi.js/dist/pixi.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD:game/index.html
     <script src="index.js">
         let type = "WebGL"
         if(!PIXI.utils.isWebGLSupported()){
@@ -15,5 +18,13 @@
         }
     </script>
     Game page
+=======
+    <ul id="messages"></ul>
+    <form id='myForm' action="">
+        <input id="m" autocomplete="off" />
+        <button>Send</button>
+    </form>
+    <script src="networkTest.js"></script>
+>>>>>>> InitialServerSetup:chat-test/index.html
 </body>
 </html>

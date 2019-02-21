@@ -5,12 +5,9 @@ const express = require('express'),
 const app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var network_manager = require('./network-manager.js');
 
-io.on('connection', function(socket){
-    socket.on('input', function(input){
-        console.log(input);
-    });
-  });
+io.on('connection', network_manager.onConnect);
 
 app.use(express.static(path.join(__dirname + '/../game')));
 

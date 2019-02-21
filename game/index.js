@@ -18,10 +18,11 @@ document.body.appendChild(app.view);
 let state;
 let circle = new PIXI.Graphics;
 let inputs = {
-  left = false,
-  right = false,
-  up = false,
-  down = false
+  left: false,
+  right: false,
+  up: false,
+  down: false,
+  dt: 0
 }
 
 circle.lineStyle(40, 0xFF0000);
@@ -141,6 +142,7 @@ app.ticker.add(delta => gameLoop(delta));
 }
 
 function gameLoop(delta){
+  inputs.dt = delta;
   socket.emit('input', inputs);
   state(delta);
 }

@@ -15,6 +15,8 @@ exports.onConnect = function(socket){
         players = players.filter(function(p){
             return p.playerId !== player.playerId;
         });
-        console.log(players);
+        console.log('Player ' + player.playerId + ' disconnected.');
     });
+
+    console.log('Player ' + player.playerId + ' connected.');
 }

@@ -1,20 +1,3 @@
-exports.sendPlayerToDb = function(req, res){
-
-    let bob = new Player({
-        username: 'bob',
-        playerLevel:5 
-    });
-
-    let llarry = new Player({
-        username: 'llarry',
-        playerLevel: 100
-    });
-
-    let list = [bob, llarry];
-
-    Player.insertMany(list);
-}
-
 const mongoose = require('mongoose');
 
 //In this string the Test is the Name of the Database and we wanna change that
@@ -38,3 +21,29 @@ let Player = mongoose.model("players", playerSchema);
 db.once('open', function callback() {
 
 });
+
+exports.loadPlayer = function(name, callback, socket){
+    let bleh = new Player();
+    Player.findOne({username : {Name}}, function(err, results){
+        if(!results){
+            //found nothing
+            bleh = new Player({
+                username: name,
+                playerLevel: 1,
+                X: 100,
+                Y: 100
+            });
+            //make a new player
+        }else{
+            //found something
+            bleh = new Player({
+                username: results.username,
+                playerLevel: results.playerLevel,
+                X: results.X,
+                Y: results.Y
+            });
+        }
+        callback(bleh, socket);
+    });
+
+}

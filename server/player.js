@@ -1,13 +1,12 @@
 
-var nextPlayerId = 0;
-
-exports.Player = function(){
+exports.Player = function(schema){
     var player = {
         //general gameobject variables
-
+        x:schema.X,
+        y:schema.Y,
         //object variables
-        playerId:nextPlayerId,
-
+        username:schema.username,
+        playerLevel:schema.playerLevel,
         //functions
         onJoin:function(){
         },
@@ -15,8 +14,5 @@ exports.Player = function(){
             //console.log(input);
         }
     };
-
-    nextPlayerId++;
-
     return player;
 }

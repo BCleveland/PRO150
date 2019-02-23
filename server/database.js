@@ -22,18 +22,19 @@ db.once('open', function callback() {
 
 });
 
-exports.loadPlayer = function(name, callback, socket){
+exports.loadPlayer = function(username, callback, socket){
     let bleh = new Player();
-    Player.findOne({username : {Name}}, function(err, results){
+    Player.findOne({username : username}, function(err, results){
         if(!results){
             //found nothing
             bleh = new Player({
-                username: name,
+                username: username,
                 playerLevel: 1,
                 X: 100,
                 Y: 100
             });
             //make a new player
+            Player.create(bleh);
         }else{
             //found something
             bleh = new Player({
@@ -46,4 +47,16 @@ exports.loadPlayer = function(name, callback, socket){
         callback(bleh, socket);
     });
 
+}
+
+exports.savePlayer = function(player){
+    Player.findOne({username : player.username}, function(err, results){
+        if(results){
+            results.X = player.X;
+            results.Y = player.Y;
+            results.playerLevel = player.playerLevel;
+            results.username = player.username;
+            results.save();
+        }
+    });
 }

@@ -34,6 +34,7 @@ circle.vx = 0;
 circle.vy = 0;
 circle.x = innerWidth / 2;
 circle.y = innerHeight/ 2;
+socket.on('GameState', render);
 
 app.stage.addChild(circle);
 
@@ -90,47 +91,39 @@ let upArrow = keyboard("ArrowUp"),
     rightArrow = keyboard("ArrowRight");
 
 leftArrow.press = () => {
-    circle.vx = -5;
     inputs.left = true;
 }
 leftArrow.release = () =>{
     if(!rightArrow.isDown){
-        circle.vx = 0;
         inputs.left = false;
     }
 }
 
 upArrow.press = () => {
-    circle.vy = -5;
     inputs.up = true;
 };
 upArrow.release = () => {
     if (!downArrow.isDown) {
-      circle.vy = 0;
       inputs.up = false;
     }
 };
 
   //Right
 rightArrow.press = () => {
-    circle.vx = 5;
     inputs.right = true;
 };
 rightArrow.release = () => {
     if (!leftArrow.isDown) {
-      circle.vx = 0;
       inputs.right = false;
     }
 };
 
   //Down
 downArrow.press = () => {
-    circle.vy = 5;
     inputs.down = true;
 };
 downArrow.release = () => {
     if (!upArrow.isDown) {
-      circle.vy = 0;
       inputs.down = false;
     }
 };
@@ -151,6 +144,11 @@ function play(delta){
   circle.x += circle.vx;
   circle.y += circle.vy;
     
+}
+
+function render(GameState){
+  circle.x = GameState.x;
+  circle.y = GameState.y;
 }
 
 setup();

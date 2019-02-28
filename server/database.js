@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //In this string the Test is the Name of the Database and we wanna change that
-let uri = 'mongodb://Admin:101097@discdungeon-shard-00-00-7kwo1.mongodb.net:27017,discdungeon-shard-00-01-7kwo1.mongodb.net:27017,discdungeon-shard-00-02-7kwo1.mongodb.net:27017/test?ssl=true&replicaSet=DiscDungeon-shard-0&authSource=admin&retryWrites=true';
+let uri = 'mongodb://Admin:101097@discdungeon-shard-00-00-7kwo1.mongodb.net:27017,discdungeon-shard-00-01-7kwo1.mongodb.net:27017,discdungeon-shard-00-02-7kwo1.mongodb.net:27017/DogFighting?ssl=true&replicaSet=DiscDungeon-shard-0&authSource=admin&retryWrites=true';
 
 mongoose.connect(uri);
 
@@ -16,11 +16,40 @@ var playerSchema = mongoose.Schema({
     Y: Number
 });
 
+ //idk if i actually need this
+var dogSchema = mongoose.Schema({
+    name: String,
+    HP: Number,
+    ATK: Number,
+    DEF: Number,
+    MDEF: Number,
+    SPD: Number
+});
+
 let Player = mongoose.model("players", playerSchema);
+
+let Dog = mongoose.model("Dogs", dogSchema);
 
 db.once('open', function callback() {
 
 });
+
+exports.findDogByName = function(doggoName){
+    let bleh = new Dog();
+    Dog.findOne({name: doggoName}, function(err, results){
+        if(results){
+            bleh = new Dog({
+                name: results.name,
+                HP: results.HP,
+                ATK: results.ATK,
+                DEF: results.DEF,
+                MDEF: results.MDEF,
+                SPD: results.SPD
+            });
+            return bleh;
+        }
+    })
+}
 
 exports.loadPlayer = function(username, callback, socket){
     let bleh = new Player();

@@ -1,4 +1,4 @@
-const express = require('express'),
+/*const express = require('express'),
     path = require('path'),
     routes = require('./routes.js');
 
@@ -13,4 +13,16 @@ app.use(express.static(path.join(__dirname + '/../game')));
 
 app.get('/', routes.index);
 
-server.listen(3000);
+server.listen(3000);*/
+
+const combatManager = require('./combat-manager.js');
+
+let user = {attack:100};
+let attack = {baseDamage:100,
+dieCount:3,
+dieSize:10,
+attackType:'magic'
+};
+let target = {spDefence:15};
+
+combatManager.UseMoveOnTarget(user, attack, target);

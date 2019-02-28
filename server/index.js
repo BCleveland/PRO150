@@ -15,7 +15,10 @@ app.get('/', routes.index);
 
 server.listen(3000);*/
 
+const db = require('./database.js');
 const combatManager = require('./combat-manager.js');
+
+
 
 let user = {attack:100};
 let attack = {baseDamage:100,

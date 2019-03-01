@@ -28,23 +28,23 @@ var dogSchema = mongoose.Schema({
 
 let Player = mongoose.model("players", playerSchema);
 
-let Dog = mongoose.model("Dogs", dogSchema);
+let Dog = mongoose.model("dogs", dogSchema);
 
 db.once('open', function callback() {
-    findDogByName("Fighter", onDogLoad);
+    // findDogByName("Fighter", onDogLoad);
 
+    // function onDogLoad(dog){
+    //     console.log(dog.Name + " is a good boy");
+    // }
 });
-function onDogLoad(dog){
-    console.log(dog + " is a good boy");
-}
 
-var findDogByName = function(doggoName, callback){
+
+exports.findDogByName = function(doggoName, callback){
     let bleh = new Dog();
-    Dog.findOne({}, function(err, results){
+    Dog.findOne({Name: doggoName}, function(err, results){
         if(err){
             console.log(err);
         }
-        console.log('results is ' + results);
         if(results){
             bleh = new Dog({
                 Name: results.Name,
@@ -54,6 +54,12 @@ var findDogByName = function(doggoName, callback){
                 MDEF: results.MDEF,
                 SPD: results.SPD
             });
+        }
+        else{
+            bleh = new Dog({
+                Name: "fuck"
+            });
+            console.log("fuck was made");
         }
         callback(bleh);
     });

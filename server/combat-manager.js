@@ -1,8 +1,50 @@
 const Attack = require('./attacks/attack.js').default;
 
+/*
 
+actions contains:
+the move being used
+priority if exists
+caster
 
-exports.UseMoveOnTarget = function(user, attack, target){
+*/
+
+calculateTurn = (actions) =>{
+    let firstMove = getFirstMove(actions);
+    let secondMove = (firstMove === 0) ? 1 : 0;
+
+    actions[firstMove].use();
+    actions[secondMove].use();
+}
+
+getFirstMove = (actions) =>{
+    //if one of the moves has a higher priority, it goes first
+    let firstMove = -1;
+    if(actions[0].priority > actions[1].priority){
+        firstMove = 0;
+    }
+    else if(actions[1].priority > actions[0].priority){
+        firstMove = 1;
+    }
+
+    //if both moves were tied in priority, go on the caster's speeds
+    if(firstMove === -1){
+        if(actions[0].caster.effectiveSpeed > actions[1].caster.effectiveSpeed){
+            firstMove = 0;
+        }
+        else if(actions[1].caster.effectiveSpeed > actions[0].caster.effectiveSpeed){
+            firstMove = 1;
+        }
+
+        //If speeds are tied and priority is tied, a random person goes first
+        if(firstMove === -1){
+            firstMove = Math.round(Math.random());
+        }
+    }
+    return firstMove;
+}
+
+exports.UseMoveOnTarget = (user, attack, target) =>{
     let roll = getRoll(attack);
     let rawDamage = (roll*5)+attack.baseDamage;
     let defenceMod = 0;

@@ -2,7 +2,7 @@
 
 //externals
 var db = require('./database.js');
-var Player = require('./objects/player.js');
+var Player = require('./objects/character.js');
 
 //An array of all of the player objects
 var players = [];

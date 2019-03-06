@@ -3,6 +3,8 @@ const Action = require('./objects/action.js');
 const Character = require('./objects/character.js');
 const Field = require('./objects/field.js');
 
+const networkmanager = require('./network-manager');
+
 /*
 
 actions contains:
@@ -12,26 +14,45 @@ caster
 
 */
 
-let p1 = [
-    new Character('A', 300),
-    new Character('B', 300),
-    new Character('C', 300),
-    new Character('D', 300),
-];
+//this will only contain players who have loaded their data already
+let players = [];
 
-let p2 = [
-    new Character('E', 300),
-    new Character('F', 300),
-    new Character('G', 300),
-    new Character('H', 300),
-];
+let fields = [];
 
-let fields = [new Field(p1, 'Alpha'), new Field(p2, 'Beta')];
+///Given a player objects, loads its field object into it
+exports.loadPlayerData = player =>{
+    //load characters from database, based on user input
+    let characters = [
+        new Character('E', 300),
+        new Character('F', 300),
+        new Character('G', 300),
+        new Character('H', 300),
+    ];
+    player.field = new Field(characters, player.username);
+    player.pId = players.length;
+    players.push(player);
 
-let act = [
-    new Action(new Attack(10, 10, 10, 'physical'), 0, p1[1], 0),
-    new Action(new Attack(5, 5, 5, 'magical'), 1, p2[1], 1)
-];
+    //if both players are loaded in
+    if(player.length == 2){
+        networkmanager.startGame();
+    }
+}
+
+exports.onPlayerInput = (player, input) =>{
+    let caster = player.field.getLead();
+    //Figure out the move to use here
+    let attack = new Attack(100, 6, 4, 'physical');
+    let priority = 0;
+    player.currentAction = new Action(attack, priority, caster, player.pId);
+
+    checkIfTurnReady();
+}
+
+checkIfTurnReady = () =>{
+    if(players[0].currentAction != null && players[1].currentAction != null){
+        runTurn([players[0].currentAction, players[1].currentAction]);
+    }
+}
 
 /*
 Once both actions are input,
@@ -44,13 +65,13 @@ runTurn = (actions) =>{
 
     actions[firstMove].use(fields);
     actions[secondMove].use(fields);
+
+    players[0].currentAction = null;
+    players[1].currentAction = null;
+
+    networkmanager.updateClients();
 }
 
-
-
-exports.runTestTurn = () =>{
-    runTurn(act);
-}
 
 getFirstMove = (actions) =>{
     //if one of the moves has a higher priority, it goes first
@@ -77,4 +98,11 @@ getFirstMove = (actions) =>{
         }
     }
     return firstMove;
+}
+
+
+exports.getGameState = () =>{
+    return {
+        fields:fields
+    };
 }

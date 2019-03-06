@@ -5,16 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="node_modules/pixi.js/dist/pixi.min.js"></script>
+    <link href="style.css" rel="stylesheet" />
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-    <script src="index.js">
-        let type = "WebGL"
-        if(!PIXI.utils.isWebGLSupported()){
-            type = "canvas"
-        }
-    </script>
-    Game page
+    <div class="background">
+        <div class="username">
+            <div> </div>
+            <div> </div>
+            <div class="center">
+                <form id="formy" action="/game" onsubmit="giveUsername()">
+                    <h2>Please choose a Username to Continue</h2>
+                    <input id="username" type="text"/>
+                    <input type="submit" value="Submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

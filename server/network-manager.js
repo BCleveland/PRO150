@@ -11,10 +11,12 @@ var players = [];
 exports.onConnect = socket =>{
     //Hook up the sockets, but the player isn't "connected" until they enter a username
     let p = new Player(socket);
+    console.log("A player has connected. Waiting for username");
     players.push(p);
 }
 
 exports.startGame = () =>{
+    console.log("Game is starting.");
     let gameState = combatmanager.getGameState();
     players[0].socket.emit('gameStart', gameState);
     players[1].socket.emit('gameStart', gameState);
@@ -22,6 +24,7 @@ exports.startGame = () =>{
 }
 
 exports.updateClients = () =>{
+    console.log("Next turn starting");
     let gameState = combatmanager.getGameState();
     players[0].socket.emit('gameUpdate', gameState);
     players[1].socket.emit('gameUpdate', gameState);

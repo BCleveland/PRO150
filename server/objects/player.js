@@ -5,13 +5,13 @@ module.exports = class Player{
     constructor(socket){
         this.socket = socket;
         socket.on("login", this.defineUsername);
-        socket.on("input", this.input);
+        socket.on("input", this.onInput);
     }
-    defineUsername = username =>{
+    defineUsername(username){
         this.username = username;
         combatmanager.loadPlayerData(this);
     }
-    onInput = input =>{
+    onInput(input){
         combatmanager.onPlayerInput(this, input);
     }
 }

@@ -38,6 +38,8 @@ db.once('open', function callback() {
     // }
 });
 
+// exports.getPlayerTeam = function
+
 
 exports.findDogByName = function(doggoName, callback){
     let bleh = new Dog();

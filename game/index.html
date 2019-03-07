@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="style.css" rel="stylesheet" />
     <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
 </head>
 <body>
     <div class="background">
@@ -14,11 +15,12 @@
             <div> </div>
             <div> </div>
             <div class="center">
-                <form id="formy" action="/game" onsubmit="giveUsername()">
-                    <h2>Please choose a Username to Continue</h2>
-                    <input id="username" type="text"/>
-                    <input type="submit" value="Submit"/>
-                </form>
+                <form id="formy" onsubmit="return giveUsername()">
+                        <h2>Please choose a Username to Continue</h2>
+                        <input id="username" type="text"/>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="game">

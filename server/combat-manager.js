@@ -32,8 +32,10 @@ exports.loadPlayerData = player =>{
     player.pId = players.length;
     players.push(player);
 
+    console.log("Loaded player " + player.username);
+
     //if both players are loaded in
-    if(player.length == 2){
+    if(players.length == 2){
         networkmanager.startGame();
     }
 }

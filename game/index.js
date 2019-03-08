@@ -3,22 +3,44 @@ var socket = io();
 //inside the button click we need this
 //socket.emit('sendAttack', message.value);
 let isGame = false;
+let thisPlayerName = null;
+let currentGameState = null;
 
 function giveUsername(){
   var formy = document.getElementById('username');
   socket.emit('login', formy.value);
+  thisPlayerName = formy.value;
   toggle();
   return false;
+}
+
+function turnInput(event){
+  console.log(event);
+  let response = null;
+  if(event === 5) response = "SpinRight";
+  else if(event === -5) response = "SpinLeft";
+  else{
+    let currentPlayer = null;
+    currentGameState.forEach(element => {
+      if(element.ownerUsername === thisPlayerName){
+        response = element.chars[element.leadIndex].moves[event];
+      }
+    });
+  }
+
+  socket.emit('input', response);
 }
 
 //when the game begins, this is called
 socket.on('gameStart', function(gameState){
   console.log(gameState);
+  currentGameState = gameState;
 });
 
-function spin(num){
-  socket.emit('input', num);
-}
+socket.on('gameUpdate', function(gameState){
+  console.log(gameState);
+  currentGameState = gameState;
+})
 
 function toggle(){
   console.log("whoooooooo");

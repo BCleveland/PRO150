@@ -44,7 +44,7 @@ body{
 }
 
 canvas{
-    width: 1267px;
+    width: 49%;
     height: 750px;
     background-color: #876543;
     border: 2px solid black;

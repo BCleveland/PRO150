@@ -36,13 +36,13 @@
                 <h2>Choose a move or spin your field:</h2>
                 <br/>
                 <div id="moveButtons">
-                    <button id="move1"></button>
-                    <button id="move2"></button>
-                    <button id="move3"></button>
+                    <button id="move1" onclick='turnInput(0)'>Move 1</button>
+                    <button id="move2" onclick='turnInput(1)'>Move 2</button>
+                    <button id="move3" onclick='turnInput(2)'>Move 3</button>
                 </div>
                 <div id="spinButtons">
-                    <button id="spinLeft" onclick="spin(-1)">Spin Field Left</button>
-                    <button id="spinRight" onclick="spin(1)">Spin Field Right</button>
+                    <button id="spinLeft" onclick="turnInput(-5)">Spin Field Left</button>
+                    <button id="spinRight" onclick="turnInput(5)">Spin Field Right</button>
                 </div>
             </div>
             <button onclick="toggle()">Toggle</button>

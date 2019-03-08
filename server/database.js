@@ -11,9 +11,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var playerSchema = mongoose.Schema({
     username: String,
-    playerLevel: Number,
-    X: Number,
-    Y: Number
+    teams: Array
 });
 
  //idk if i actually need this
@@ -31,15 +29,39 @@ let Player = mongoose.model("players", playerSchema);
 let Dog = mongoose.model("dogs", dogSchema);
 
 db.once('open', function callback() {
-    // findDogByName("Fighter", onDogLoad);
 
-    // function onDogLoad(dog){
-    //     console.log(dog.Name + " is a good boy");
-    // }
 });
 
-// exports.getPlayerTeam = function
+exports.getPlayerTeam = function (username, callback){
+    let bleh = new Player();
+    Player.findOne({username: username}, function(err, results){
+        if(!results){
+            //found nothing
+            console.log("You dont have a team");
+        }
+        else{
+            //found something
+            bleh = {
+                username: username,
+                teams: results.teams
+            };
+        }
+    });
+    var query = Dog.$where('this.name' === teams[0] || 'this.name' === teams[1] || 'this.name' === teams[2] || 'this.name' === teams[3])
+    callback(bleh, query);
+    //this wont work because reasons 
+    // for (let i = 0; i < teams.length; i++) {
+    //     const element = teams[i];
+    //     module.exports.findDogByName(element, callback);
+    // }
+}
 
+function makeDoggoTeam(team){
+    Dog.find({
+        name: team[1]
+    })
+    Dog.$where(team[0] || team[1] || team[2] || team[3]);
+}
 
 exports.findDogByName = function(doggoName, callback){
     let bleh = new Dog();
@@ -67,41 +89,41 @@ exports.findDogByName = function(doggoName, callback){
     });
 }
 
-exports.loadPlayer = function(username, callback, socket){
-    let bleh = new Player();
-    Player.findOne({username : username}, function(err, results){
-        if(!results){
-            //found nothing
-            bleh = new Player({
-                username: username,
-                playerLevel: 1,
-                X: 100,
-                Y: 100
-            });
-            //make a new player
-            Player.create(bleh);
-        }else{
-            //found something
-            bleh = new Player({
-                username: results.username,
-                playerLevel: results.playerLevel,
-                X: results.X,
-                Y: results.Y
-            });
-        }
-        callback(bleh, socket);
-    });
+// exports.loadPlayer = function(username, callback, socket){
+//     let bleh = new Player();
+//     Player.findOne({username : username}, function(err, results){
+//         if(!results){
+//             //found nothing
+//             bleh = new Player({
+//                 username: username,
+//                 playerLevel: 1,
+//                 X: 100,
+//                 Y: 100
+//             });
+//             //make a new player
+//             Player.create(bleh);
+//         }else{
+//             //found something
+//             bleh = new Player({
+//                 username: results.username,
+//                 playerLevel: results.playerLevel,
+//                 X: results.X,
+//                 Y: results.Y
+//             });
+//         }
+//         callback(bleh, socket);
+//     });
 
-}
+// }
 
-exports.savePlayer = function(player){
-    Player.findOne({username : player.username}, function(err, results){
-        if(results){
-            results.X = player.X;
-            results.Y = player.Y;
-            results.playerLevel = player.playerLevel;
-            results.username = player.username;
-            results.save();
-        }
-    });
-}
+// exports.savePlayer = function(player){
+//     Player.findOne({username : player.username}, function(err, results){
+//         if(results){
+//             results.X = player.X;
+//             results.Y = player.Y;
+//             results.playerLevel = player.playerLevel;
+//             results.username = player.username;
+//             results.save();
+//         }
+//     });
+// }

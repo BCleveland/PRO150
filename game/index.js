@@ -7,7 +7,7 @@ let thisPlayerName = null;
 let currentGameState = null;
 
 function giveUsername(){
-  var formy = document.getElementById('username');
+  var formy = document.getElementById('usernameFormy');
   socket.emit('login', formy.value);
   thisPlayerName = formy.value;
   toggle();

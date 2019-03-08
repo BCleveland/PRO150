@@ -4,6 +4,7 @@ const Character = require('./objects/character.js');
 const Field = require('./objects/field.js');
 
 const networkmanager = require('./network-manager');
+const db = require('./database.js');
 
 /*
 
@@ -21,18 +22,15 @@ let fields = [];
 
 ///Given a player objects, loads its field object into it
 exports.loadPlayerData = player =>{
-    //load characters from database, based on user input
-    let characters = [
-        new Character('E', 300),
-        new Character('F', 300),
-        new Character('G', 300),
-        new Character('H', 300),
-    ];
+    db.getPlayerTeam(player, onCharactersLoaded);
+}
+
+onCharactersLoaded = (player, characters)=>{
     player.field = new Field(characters, player.username);
     player.pId = players.length;
     players.push(player);
 
-    console.log("Loaded player " + player.username);
+    console.log("Loaded player " + characters[0]);
 
     //if both players are loaded in
     if(players.length == 2){

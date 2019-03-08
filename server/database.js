@@ -32,9 +32,9 @@ db.once('open', function callback() {
 
 });
 
-exports.getPlayerTeam = function (username, callback){
+exports.getPlayerTeam = function (player, callback){
     let bleh = new Player();
-    Player.findOne({username: username}, function(err, results){
+    Player.findOne({username: player.username}, function(err, results){
         if(!results){
             //found nothing
             console.log("You dont have a team");
@@ -42,13 +42,20 @@ exports.getPlayerTeam = function (username, callback){
         else{
             //found something
             bleh = {
-                username: username,
+                username: results.username,
                 teams: results.teams
             };
+            Dog.find().or([
+                {Name:bleh.teams[0]},
+                {Name:bleh.teams[1]},
+                {Name:bleh.teams[2]},
+                {Name:bleh.teams[3]}])
+            .exec(function(err, team){
+                if(err) return console.log(err);
+                callback(player,team);
+            });
         }
     });
-    var query = Dog.$where('this.name' === teams[0] || 'this.name' === teams[1] || 'this.name' === teams[2] || 'this.name' === teams[3])
-    callback(bleh, query);
     //this wont work because reasons 
     // for (let i = 0; i < teams.length; i++) {
     //     const element = teams[i];

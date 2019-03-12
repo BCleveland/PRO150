@@ -1,10 +1,13 @@
 module.exports = class Character{
-    constructor(name, hp){
-        this.name = name;
-        this.hp = hp;
-        this.spDefence = 50;
-        this.defence = 50;
-        this.attack = 50;
+    constructor(schema){
+        this.name = schema.Name;
+        this.hp = 100 + (5*schema.HP);
+        this.attack = schema.ATK;
+        this.defence = schema.DEF;
+        this.spDefence = schema.MDEF;
+        this.speed = schema.SPD;
+        this.moves = schema.Moves;
+        this.imageUrl = schema.imageUrl;
     }
     dealDamage(damage){
         this.hp -= damage;

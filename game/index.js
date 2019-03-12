@@ -18,7 +18,6 @@ function giveUsername(){
   var formy = document.getElementById('usernameFormy');
   socket.emit('login', formy.value);
   thisPlayerName = formy.value;
-  toggle();
   return false;
 }
 
@@ -29,7 +28,7 @@ function turnInput(event){
   else if(event === -5) response = "SpinLeft";
   else{
     let currentPlayer = null;
-    currentGameState.forEach(element => {
+    currentGameState.fields.forEach(element => {
       if(element.ownerUsername === thisPlayerName){
         response = element.chars[element.leadIndex].moves[event];
       }
@@ -43,6 +42,7 @@ function turnInput(event){
 socket.on('gameStart', function(gameState){
   console.log(gameState);
   currentGameState = gameState;
+  toggle();
   drawFields();
 });
 
@@ -75,33 +75,31 @@ function drawFields(){
       let context = canvas.getContext('2d');
       for(let j = 0; j < currentGameState.fields[i].chars.length; j++){
         var heck = j+currentGameState.fields[i].leadIndex % 4;
-        if(count === currentGameState.fields[i].chars.length) break;
-
         switch(j){
           case 0:
             profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageURL;
+            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
             profileImage.onload = () =>{
                 context.drawImage(profileImage, rightX, rightY, 100, 100);
             }
             break;
           case 1:
             profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageURL;
+            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
             profileImage.onload = () =>{
                 context.drawImage(profileImage, bottomX, bottomY, 100, 100);
             }
             break;
           case 2:
             profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageURL;
+            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
             profileImage.onload = () =>{
                 context.drawImage(profileImage, leftX, leftY, 100, 100);
             }
             break;
           case 3:
             profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageURL;
+            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
             profileImage.onload = () =>{
                 context.drawImage(profileImage, topX, topY, 100, 100);
             }

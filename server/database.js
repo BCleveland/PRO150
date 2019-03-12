@@ -21,7 +21,9 @@ var dogSchema = mongoose.Schema({
     ATK: Number,
     DEF: Number,
     MDEF: Number,
-    SPD: Number
+    SPD: Number,
+    Moves: Array,
+    imageUrl: String
 });
 
 let Player = mongoose.model("players", playerSchema);

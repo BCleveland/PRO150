@@ -26,11 +26,15 @@ exports.loadPlayerData = player =>{
 }
 
 onCharactersLoaded = (player, characters)=>{
-    player.field = new Field(characters, player.username);
+    let chars = [];
+    for(let j = 0; j < characters.length; j++){
+        chars.push(new Character(characters[j]));
+    }
+    console.log(chars);
+    player.field = new Field(chars, player.username);
     player.pId = players.length;
     players.push(player);
-
-    console.log("Loaded player " + characters[0]);
+    fields.push(player.field);
 
     //if both players are loaded in
     if(players.length == 2){

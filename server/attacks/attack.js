@@ -1,11 +1,12 @@
 module.exports = class Attack{
-    constructor(baseDamage, dieCount, dieSize, attackType){
-        this.baseDamage = baseDamage;
-        this.dieCount = dieCount;
-        this.dieSize = dieSize;
-        this.attackType = attackType;
+    constructor(input){
+        this.baseDamage = input.BD;
+        this.dieCount = input.NumOfDie;
+        this.dieSize = input.DieNum;
+        this.attackType = "physical";
     }
     useAttack(user, target){
+        console.log("attack used");
         let roll = this.getRoll();
         let rawDamage = (roll*5)+this.baseDamage;
         let defenceMod = 0;

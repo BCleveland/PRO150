@@ -50,6 +50,7 @@ socket.on('gameStart', function(gameState){
 socket.on('gameUpdate', function(gameState){
   console.log(gameState);
   currentGameState = gameState;
+  changeButtonNames();
   drawFields();
 })
 

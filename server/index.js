@@ -12,4 +12,6 @@ app.use(express.static(path.join(__dirname + '/../game')));
 
 app.get('/', routes.index);
 
-server.listen(3000);
+
+const port = process.env.PORT || 3000;
+server.listen(port);

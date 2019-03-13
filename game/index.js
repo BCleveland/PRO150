@@ -110,7 +110,7 @@ function drawCharacterAndHealthbar(x, y, character, context){
   profileImage.onload = () =>{
       context.drawImage(profileImage, x, y, 50, 50);
       context.fillStyle = "red";
-      context.fillRect(x - 12.5, y, 50 * (((character.hp < 0)? 0 : character.hp) /character.maxHp), 20);
+      context.fillRect(x - 12.5, y, 50 * (((character.hp <= 0)? 0 : character.hp) /character.maxHp), 20);
   }
 
 }

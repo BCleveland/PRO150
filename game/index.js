@@ -54,19 +54,16 @@ socket.on('gameUpdate', function(gameState){
 })
 
 function toggle(){
-  console.log("whoooooooo");
   if(isGame){
     document.getElementById('game').style.display = 'none';
     document.getElementById('username').style.display = 'block';
   }
   else{
-    console.log("howdy y'all");
     document.getElementById('username').style.display = 'none';
     document.getElementById('game').style.display = 'block';
   }
 
   isGame = !isGame;
-  console.log(isGame);
 }
 
 function drawFields(){
@@ -76,41 +73,19 @@ function drawFields(){
       let context = canvas.getContext('2d');
       for(let j = 0; j < currentGameState.fields[i].chars.length; j++){
         var heck = (j+currentGameState.fields[i].leadIndex) % 4;
-        console.log(heck);
-        console.log(currentGameState.fields[i].chars[heck].imageUrl);
         let profileImage = null;
         switch(j){
           case 0:
-            profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
-            profileImage.onload = () =>{
-                context.drawImage(profileImage, rightX, rightY, 50, 50);
-                console.log("boi");
-            }
+            drawCharacterAndHealthbar(rightX, rightY, currentGameState.fields[i].chars[heck], context);
             break;
           case 1:
-            profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
-            profileImage.onload = () =>{
-                context.drawImage(profileImage, bottomX, bottomY, 50, 50);
-                console.log("do i");
-            }
+            drawCharacterAndHealthbar(bottomX, bottomY, currentGameState.fields[i].chars[heck], context);
             break;
           case 2:
-            profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
-            profileImage.onload = () =>{
-                context.drawImage(profileImage, leftX, leftY, 50, 50);
-                console.log("hate");
-            }
+            drawCharacterAndHealthbar(leftX, leftY, currentGameState.fields[i].chars[heck], context);
             break;
           case 3:
-            profileImage = new Image();
-            profileImage.src = currentGameState.fields[i].chars[heck].imageUrl;
-            profileImage.onload = () =>{
-                context.drawImage(profileImage, topX, topY, 50, 50);
-                console.log("life");
-            }
+            drawCharacterAndHealthbar(topX, topY, currentGameState.fields[i].chars[heck], context);
             break;
         }
       }
@@ -126,4 +101,15 @@ function changeButtonNames(){
       }
     }
   }
+}
+
+function drawCharacterAndHealthbar(x, y, character, context){
+  let profileImage = new Image();
+  profileImage.src = character.imageUrl;
+  profileImage.onload = () =>{
+      context.drawImage(profileImage, x, y, 50, 50);
+      context.fillStyle = "red";
+      context.fillRect(x - 12.5, y, 50 * (character.hp/character.maxHp), 20);
+  }
+
 }

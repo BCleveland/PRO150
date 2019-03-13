@@ -2,6 +2,7 @@ const Attack = require('./attacks/attack.js');
 const Action = require('./objects/action.js');
 const Character = require('./objects/character.js');
 const Field = require('./objects/field.js');
+const Rotate = require('./attacks/rotate.js');
 
 const networkmanager = require('./network-manager');
 const db = require('./database.js');
@@ -43,10 +44,22 @@ onCharactersLoaded = (player, characters)=>{
 }
 
 exports.onPlayerInput = (player, input) =>{
-    let caster = player.field.getLead();
     //Figure out the move to use here
-    let attack = new Attack(100, 6, 4, 'physical');
-    let priority = 0;
+    console.log(input);
+    if(input === "SpinRight" || input === "SpinLeft"){
+        let dir = input === "SpinRight" ? 1 : -1;
+        var attack = new Rotate(dir);
+        var priority = 1;
+        var caster = player.field.getLead();
+        console.log("here1");
+    }
+    else{
+        var attack = new Attack(input);
+        var priority = 0;
+        var caster = player.field.getLead();
+        console.log("here 2");
+    }
+    console.log(attack);
     player.currentAction = new Action(attack, priority, caster, player.pId);
 
     checkIfTurnReady();

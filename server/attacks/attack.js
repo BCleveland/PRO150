@@ -6,6 +6,7 @@ module.exports = class Attack{
         this.attackType = attackType;
     }
     useAttack(user, target){
+        console.log("attack used");
         let roll = this.getRoll();
         let rawDamage = (roll*5)+this.baseDamage;
         let defenceMod = 0;

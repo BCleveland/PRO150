@@ -9,6 +9,6 @@ module.exports = class Field{
     }
     rotate(dir){
         this.leadIndex += dir;
-        this.leadIndex %= chars.length;
+        this.leadIndex %= this.chars.length;
     }
 }
